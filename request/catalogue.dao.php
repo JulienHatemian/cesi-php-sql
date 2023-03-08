@@ -40,12 +40,32 @@ function getCoursNameToDelete($idCours)
     return $res['monCours'];
 }
 
+function getTypeNameToDelete($idType)
+{
+    $dbh = getConnexion();
+    $req = 'SELECT libelle FROM types WHERE idType = :idType';
+    $stmt = $dbh->prepare($req);
+    $stmt->bindValue(":idType", $idType, PDO::PARAM_INT);
+    $stmt->execute();
+    $res = $stmt->fetch();
+    return $res['libelle'];
+}
+
 function deleteCours($idCours)
 {
     $dbh = getConnexion();
     $req = "DELETE FROM cours WHERE idCours = :idCours";
     $stmt= $dbh->prepare($req);
     $stmt->bindValue(":idCours", $idCours, PDO::PARAM_INT);
+    return $stmt->execute();
+}
+
+function deleteType($idType)
+{
+    $dbh = getConnexion();
+    $req = "DELETE FROM types WHERE idType = :idType";
+    $stmt = $dbh->prepare($req);
+    $stmt->bindValue(":idType", $idType, PDO::PARAM_INT);
     return $stmt->execute();
 }
 
@@ -77,6 +97,15 @@ function addCours($libelle, $description, $idType, $image)
     $stmt->bindValue(":description", $description, PDO::PARAM_STR);
     $stmt->bindValue(":idType", $idType, PDO::PARAM_INT);
     $stmt->bindValue(":image", $image, PDO::PARAM_STR);
+    return $stmt->execute();
+}
+
+function addType($libelle)
+{
+    $dbh=getConnexion();
+    $req='INSERT INTO types (libelle) VALUES(:libelle)';
+    $stmt = $dbh->prepare($req);
+    $stmt->bindValue(":libelle", $libelle, PDO::PARAM_STR);
     return $stmt->execute();
 }
 

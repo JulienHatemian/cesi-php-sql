@@ -21,6 +21,7 @@ function truncate($text, $ending = '...') {
         <h1>Catalogue des cours</h1>
         <p class="h3">Bienvenue sur le site de cours en ligne</p>
         <a class="btn btn-outline-light btn-lg" href="ajout-cours.php">Ajouter un cours</a>
+        <a class="btn btn-outline-light btn-lg" href="ajout-type.php">Ajouter un type de cours</a>
     </div>
     <?php
     // SUPPRESSION
