@@ -10,36 +10,6 @@ require 'services/imageService.php';
 
 $types = getTypes();
 ?>
-<?php
-    // AJOUT
-    if(isset($_POST['libelle'], $_POST['description'], $_POST['idType']))
-    {
-        $fileImage = $_FILES['imageCours'];
-        $directory = __DIR__."/assets/img/";
-        try{
-           $imageName = ajoutImage($fileImage, $directory, str_replace(' ', '-', strtolower($_POST['libelle'])));
-            $success = addCours($_POST['libelle'], $_POST['description'], $_POST['idType'], $imageName);
-            if($success){ ?>
-                <div class="container-md">
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <p>La création s'est bien déroulée</p>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                </div>
-            <?php }else{ ?>
-                <div class="container-md">
-                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                        <p>La création ne s'est pas bien déroulée</p>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                </div>
-            <?php }
-        }catch(Exception $e){
-            echo $e->getMessage();
-        }
-
-    }
-?>
 <div class="container-md mt-5">
     <div class="h-100 p-5 text-bg-info text-white rounded-3">
         <h1>Création d'un type</h1>
@@ -71,6 +41,7 @@ $types = getTypes();
                 echo $e->getMessage();
             }
 
+            $types = getTypes();
         }
 
         // SUPPRESSION
@@ -106,6 +77,7 @@ $types = getTypes();
                 </div>
             </div>
         <?php }
+        $types = getTypes();
     }?>
 
     <div class="mt-5 w-75 mx-auto">
